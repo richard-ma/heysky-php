@@ -57,10 +57,20 @@ class Heysky {
         $this->sm = $sm;
 
         $url = $this->api_address . '?' . $this->_data();
-        echo $url;
+        #echo $url;
+
+        # use curl to make http request
+        $curl_handler = curl_init();
+        curl_setopt($curl_handler, CURLOPT_URL, $url);
+        $response = curl_exec($curl_handler);
+        //print_r($response);
+        curl_close($curl_handler);
+
+        parse_str($response, $response_array);
+        print_r($response_array);
     }
 }
 
 # test
-$api = new Heysky('username', 'password');
-$api->sendMessage('1380000000', 'this is the message 和中文测试');
+$api = new Heysky('test', 'santo20160201');
+$api->sendMessage('861380000000', 'this is the message 和中文测试');
