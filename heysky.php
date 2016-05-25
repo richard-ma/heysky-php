@@ -31,12 +31,12 @@ class Heysky {
 
     public function sendMessage($da, $sm) {
         $this->command = 'MT_REQUEST';
-        $this->_send($da, $sm);
+        return $this->_send($da, $sm);
     }
 
     public function sendVoice($da, $sm) {
         $this->command = 'VO_REQUEST';
-        $this->_send($da, $sm);
+        return $this->_send($da, $sm);
     }
 
     protected function _data() {
@@ -62,15 +62,18 @@ class Heysky {
         # use curl to make http request
         $curl_handler = curl_init();
         curl_setopt($curl_handler, CURLOPT_URL, $url);
+        curl_setopt($curl_handler, CURLOPT_RETURNTRANSFER, 1);
         $response = curl_exec($curl_handler);
-        //print_r($response);
         curl_close($curl_handler);
 
         parse_str($response, $response_array);
-        print_r($response_array);
+        return $response_array;
     }
 }
 
+/*
 # test
 $api = new Heysky('test', 'santo20160201');
-$api->sendMessage('861380000000', 'this is the message 和中文测试');
+$response = $api->sendMessage('8615122131257', 'd1e9d6a4c2eb31323334');
+print_r($response);
+ */
