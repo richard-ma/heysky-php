@@ -57,7 +57,7 @@ class Heysky {
         $this->sm = $sm;
 
         $url = $this->api_address . '?' . $this->_data();
-        #echo $url;
+        echo $url;
 
         # use curl to make http request
         $curl_handler = curl_init();
