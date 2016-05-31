@@ -6,15 +6,32 @@
         <title>短信群发系统</title>
     </head>
     <body>
-        <form id="dataForm">
-            <textarea name="data" cols="80" rows="20"></textarea>
-        </form>
-        <button id="submit">发送</button>
+        <table>
+            <tr>
+                <td>
+                    <form id="dataForm">
+                        <textarea name="data" cols="80" rows="20"></textarea>
+                    </form>
+                    <button id="submit">发送</button>
+                </td>
+                <td>
+                    <h3>发送结果</h3>
+                    <iframe id="resultIframe" src="./log" width="300px" height="500px"></iframe>
+                </td>
+            </tr>
+        </table>
 <script type="text/javascript">
     $('#submit').click(function () {
         $.post("action.php", $('#dataForm').serialize());
         alert('数据已提交');
     });
+
+    var refresh_result = function() {
+        $('#resultIframe').attr('src', $('#resultiframe').attr('src'));
+        alert('结果已刷新');
+    };
+
+    //setInterval("refresh_result", 5000);
 </script>
     </body>
 </html>
