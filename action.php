@@ -3,16 +3,17 @@
 require_once('./heysky.php');
 require_once('./config.php');
 
+$logFilename = './log';
+file_put_contents($logFilename, ""); # clear log file
+$log_file_handler = fopen($logFilename, "w+");
+
 # parse post data
 $s = $_POST['data'];
 $data_array = explode(PHP_EOL, $s);
+#fwrite($log_file_handler, $_POST['data']."\n");
 
 # load sms template
 $template = file_get_contents('./template');
-
-$logFilename = './logs/log';
-file_put_contents($logFilename, ""); # clear log file
-$log_file_handler = fopen($logFilename, "w+");
 
 foreach ($data_array as $data) {
     $rec = explode('|', $data);

@@ -6,12 +6,15 @@
         <title>短信群发系统</title>
     </head>
     <body>
-        <form action="action.php" method="POST">
+        <form id="dataForm">
             <textarea name="data" cols="80" rows="20"></textarea>
-            <input type="SUBMIT" value="发送" />
         </form>
+        <button id="submit">发送</button>
 <script type="text/javascript">
-
+    $('#submit').click(function () {
+        $.post("action.php", $('#dataForm').serialize());
+        alert('数据已提交');
+    });
 </script>
     </body>
 </html>
