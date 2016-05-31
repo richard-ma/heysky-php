@@ -3,7 +3,7 @@
 require_once('./heysky.php');
 require_once('./config.php');
 
-$logFilename = './log';
+$logFilename = './log.html';
 file_put_contents($logFilename, ""); # clear log file
 $log_file_handler = fopen($logFilename, "w+");
 
