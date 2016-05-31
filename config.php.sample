@@ -1,0 +1,4 @@
+<?php
+
+$heysky_username = "username"; # heysky用户名
+$heysky_password = "password"; # heysky密码

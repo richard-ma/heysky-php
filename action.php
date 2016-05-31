@@ -1,5 +1,8 @@
 <?php
 
+require_once('./heysky.php');
+require_once('./config.php');
+
 # parse post data
 $s = $_POST['data'];
 $data_array = explode(PHP_EOL, $s);
@@ -25,8 +28,7 @@ foreach ($data_array as $data) {
     #print_r($sm);
 
 # send
-    require_once('./heysky.php');
-    $api = new Heysky('test', 'santo20160201'); # 这里填写用户名和密码
+    $api = new Heysky($heysky_username, $heysky_password);
     $response = $api->sendMessage($da, $sm);
     print_r($response);
 # log
