@@ -1,7 +1,7 @@
 # heysky-php
 heysky.com API PHP interface
 
-# 系统环境
+# 系统需求
 
 * 安装有curl模块的PHP平台
 
