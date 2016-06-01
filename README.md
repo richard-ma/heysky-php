@@ -10,7 +10,9 @@ heysky.com API PHP interface
 * 将文件复制到web服务器的根目录
 * 将config.php.sample更名为config.php
 * 编辑config.php，将heysky的用户名和密码填写正确
-* 目录下创建一个名为log的文件，并赋予777权限
+* 目录下创建一个名为log.html的文件，并赋予777权限
+    * touch log.html
+    * chmod 777 log.html
 
 # 修改短信模板
 

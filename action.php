@@ -12,8 +12,11 @@ $s = $_POST['data'];
 $data_array = explode(PHP_EOL, $s);
 #fwrite($log_file_handler, $_POST['data']."\n");
 
+$record_total = count($data_array);
+$send_success_counter = 0;
+
 # load sms template
-$template = file_get_contents('./template');
+$template = str_replace(PHP_EOL, '', file_get_contents('./template'));
 
 foreach ($data_array as $data) {
     $rec = explode('|', $data);
@@ -31,9 +34,14 @@ foreach ($data_array as $data) {
 # send
     $api = new Heysky($heysky_username, $heysky_password);
     $response = $api->sendMessage($da, $sm);
-    print_r($response);
+    #print_r($response);
 # log
-    fwrite($log_file_handler, $da.'|'.$response['mtstat'].'|'.$response['mterrcode']."\n");
+    if ($response['mtstat'] == "ACCEPTD") $send_success_counter += 1;
+    fwrite($log_file_handler, $da.'|'.$response['mtstat'].'|'.$response['mterrcode']."<br />\n");
 }
+
+fwrite($log_file_handler, "<br />\n");
+fwrite($log_file_handler, "All messages have been sent.<br />\n");
+fwrite($log_file_handler, "Total: ".$record_total." Success: ".$send_success_counter." Failed: ".($record_total - $send_success_counter)."<br />\n");
 
 fclose($log_file_handler);

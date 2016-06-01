@@ -16,22 +16,23 @@
                 </td>
                 <td>
                     <h3>发送结果</h3>
-                    <iframe id="resultIframe" src="./log.html" width="300px" height="500px"></iframe>
+                    <div id="resultDiv" width="300px" height="500px"></iframe>
                 </td>
             </tr>
         </table>
 <script type="text/javascript">
     $('#submit').click(function () {
         $.post("action.php", $('#dataForm').serialize());
+        setInterval("refresh_result()", 5000);
         alert('数据已提交');
     });
 
     var refresh_result = function() {
-        $('#resultIframe').attr('src', $('#resultiframe').attr('src'));
-        alert('结果已刷新');
+        $.get('log.html', function(result) {
+            $("#resultDiv").html(result);
+        });
     };
 
-    //setInterval("refresh_result", 5000);
 </script>
     </body>
 </html>
