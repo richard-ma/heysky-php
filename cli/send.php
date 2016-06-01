@@ -1,6 +1,6 @@
 <?php
 
-function msg($msg) {
+function msg($log_file_handler, $msg) {
     print $msg;
     fwrite($log_file_handler, $msg);
 }
@@ -15,6 +15,7 @@ $log_file_handler = fopen($logFilename, "w+");
 # parse data
 $s = file_get_contents('../data');
 $data_array = explode(PHP_EOL, $s);
+array_pop($data_array);
 
 $record_total = count($data_array);
 $send_success_counter = 0;
@@ -25,7 +26,7 @@ $template = str_replace(PHP_EOL, '', file_get_contents('../template'));
 foreach ($data_array as $data) {
     $rec = explode('|', $data);
     $da = $rec[0];
-    #print_r($dc);
+    #print_r($rec);
 
 # add sms template
     $sm = $template;
@@ -41,11 +42,11 @@ foreach ($data_array as $data) {
     #print_r($response);
 # log
     if ($response['mtstat'] == "ACCEPTD") $send_success_counter += 1;
-    msg($da.'|'.$response['mtstat'].'|'.$response['mterrcode']."\n");
+    msg($log_file_handler, $da.'|'.$response['mtstat'].'|'.$response['mterrcode']."\n");
 }
 
-msg("\n");
-msg("All messages have been sent.\n");
-msg("Total: ".$record_total." Success: ".$send_success_counter." Failed: ".($record_total - $send_success_counter)."\n");
+msg($log_file_handler, "\n");
+msg($log_file_handler, "All messages have been sent.\n");
+msg($log_file_handler, "Total: ".$record_total." Success: ".$send_success_counter." Failed: ".($record_total - $send_success_counter)."\n");
 
 fclose($log_file_handler);
